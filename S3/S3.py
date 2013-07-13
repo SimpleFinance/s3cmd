@@ -79,12 +79,18 @@ except ImportError, e:
         magic_message = "Module python-magic can't be used (%s)." % e.message
     magic_message += " Guessing MIME types based on file extensions."
     magic_warned = False
+
+    mimetypes_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'mime.types')
+    mimetypes_ = mimetypes.MimeTypes()
+    mimetypes_.read(mimetypes_path)
+
     def mime_magic(file):
         global magic_warned
         if (not magic_warned):
             warning(magic_message)
             magic_warned = True
-        return mimetypes.guess_type(file)
+        return mimetypes_.guess_type(file)
 
 __all__ = []
 class S3Request(object):
