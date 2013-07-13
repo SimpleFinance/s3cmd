@@ -30,6 +30,12 @@ from MultiPart import MultiPartUpload
 from S3Uri import S3Uri
 from ConnMan import ConnMan
 
+mimetypes.add_type("application/vnd.ms-fontobject", ".eot")
+mimetypes.add_type("application/x-font-ttf", ".ttc")
+mimetypes.add_type("application/x-font-ttf", ".ttf")
+mimetypes.add_type("font/opentype", ".otf")
+mimetypes.add_type("application/x-font-woff", ".woff")
+
 try:
     import magic, gzip
     try:
