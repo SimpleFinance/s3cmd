@@ -30,12 +30,6 @@ from MultiPart import MultiPartUpload
 from S3Uri import S3Uri
 from ConnMan import ConnMan
 
-mimetypes_path = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'mime.types')
-mimetypes_ = mimetypes.MimeTypes()
-print mimetypes_path
-mimetypes_.read(mimetypes_path)
-
 try:
     import magic, gzip
     try:
@@ -85,6 +79,12 @@ except ImportError, e:
         magic_message = "Module python-magic can't be used (%s)." % e.message
     magic_message += " Guessing MIME types based on file extensions."
     magic_warned = False
+
+    mimetypes_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'mime.types')
+    mimetypes_ = mimetypes.MimeTypes()
+    mimetypes_.read(mimetypes_path)
+
     def mime_magic(file):
         global magic_warned
         if (not magic_warned):
