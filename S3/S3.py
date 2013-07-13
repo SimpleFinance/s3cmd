@@ -30,11 +30,11 @@ from MultiPart import MultiPartUpload
 from S3Uri import S3Uri
 from ConnMan import ConnMan
 
-mimetypes.add_type("application/vnd.ms-fontobject", ".eot")
-mimetypes.add_type("application/x-font-ttf", ".ttc")
-mimetypes.add_type("application/x-font-ttf", ".ttf")
-mimetypes.add_type("font/opentype", ".otf")
-mimetypes.add_type("application/x-font-woff", ".woff")
+mimetypes_path = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'mime.types')
+mimetypes_ = mimetypes.MimeTypes()
+print mimetypes_path
+mimetypes_.read(mimetypes_path)
 
 try:
     import magic, gzip
@@ -90,7 +90,7 @@ except ImportError, e:
         if (not magic_warned):
             warning(magic_message)
             magic_warned = True
-        return mimetypes.guess_type(file)
+        return mimetypes_.guess_type(file)
 
 __all__ = []
 class S3Request(object):
